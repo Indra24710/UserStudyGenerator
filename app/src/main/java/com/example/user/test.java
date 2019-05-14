@@ -5,18 +5,13 @@ import android.app.job.JobService;
 import android.app.usage.UsageStats;
 import android.app.usage.UsageStatsManager;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.media.MediaPlayer;
-import android.os.AsyncTask;
-import android.provider.MediaStore;
-import android.provider.Settings;
-import android.util.Log;
-import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.Calendar;
+import android.os.AsyncTask;
+import android.util.Log;
+
+
 import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
@@ -58,26 +53,11 @@ public  class sendmail extends AsyncTask<String,String,Void> {
     public UsageStatsManager usagestats;
     Session session;
     SharedPreferences preferences;
-    String s;
+    String mon,tue,wed,thurs,fri,sat,sun;
 
     @Override
     protected Void doInBackground(String... strings) {
-        Calendar calendar=Calendar.getInstance();
-        calendar.set(Calendar.YEAR,Calendar.MONTH,Calendar.DAY_OF_MONTH,17,00,00);
-        Calendar calendar1 =Calendar.getInstance();
-        calendar1.set(Calendar.YEAR,Calendar.MONTH,Calendar.DAY_OF_MONTH,19,00,00);
-        long t1,t2;
 
-        t1= calendar.getTimeInMillis();
-
-        Log.d("test",String.valueOf(t1));
-        t2=calendar1.getTimeInMillis();
-        Log.d("test",String.valueOf(System.currentTimeMillis()));
-        Log.d("test",String.valueOf(t2));
-      //  if((System.currentTimeMillis()>=(-1)*t1)&&(System.currentTimeMillis()<(-1)*(t2))) {
-            //Toast.makeText(context, "this works", Toast.LENGTH_LONG).show();
-
-            Log.d("test", "job should have been completed");
 
             packageManager = getPackageManager();
             usagestats = (UsageStatsManager) getSystemService(Context.USAGE_STATS_SERVICE);
@@ -96,36 +76,35 @@ public  class sendmail extends AsyncTask<String,String,Void> {
                 }
             });
 
+            List<UsageStats> usage1 = usagestats.queryUsageStats(UsageStatsManager.INTERVAL_DAILY, System.currentTimeMillis() - 86400000, System.currentTimeMillis());
 
-            List<UsageStats> usage = usagestats.queryUsageStats(UsageStatsManager.INTERVAL_DAILY, System.currentTimeMillis() - 86400000, System.currentTimeMillis());
-            Iterator<UsageStats> iterator = usage.iterator();
+        Iterator<UsageStats> iterator = usage1.iterator();
             UsageStats usagestat = null;
-            List<UsageStats> newusagestats = new ArrayList<>();
+            try{
+            mon="";
             while (iterator.hasNext()) {
                 usagestat = iterator.next();
                 if (packageManager.getLaunchIntentForPackage(usagestat.getPackageName()) != null) {
-                    newusagestats.add(usagestat);
+                    mon = mon + " " + packageManager.getApplicationLabel(packageManager.getApplicationInfo(usagestat.getPackageName(), PackageManager.GET_META_DATA)).toString() + " " + String.format("%.2f",usagestat.getTotalTimeInForeground()/(60000.0) );
                 }
+            }}catch(PackageManager.NameNotFoundException e){
+                e.printStackTrace();
             }
-            s = "";
-            Iterator<UsageStats> it = newusagestats.iterator();
-            while (it.hasNext()) {
-                usagestat = it.next();
-                try {
-                    s = s + " " + packageManager.getApplicationLabel(packageManager.getApplicationInfo(usagestat.getPackageName(), PackageManager.GET_META_DATA)).toString() + " " + usagestat.getTotalTimeInForeground();
-                } catch (PackageManager.NameNotFoundException e) {
-                    e.printStackTrace();
-                }
-            }
+
+
+
+
             MimeMessage message = new MimeMessage(session);
 
             try {
                 message.setFrom(new InternetAddress("indra.kumar17326@gmail.com"));
-                message.setRecipients(Message.RecipientType.TO, InternetAddress.parse("indra.kumar24710@gmail.com"));
-                message.setSubject("Age: " + preferences.getString("age", " ") + " Gender: " + preferences.getString("gender", " ") + " Edu/Prof field: " + preferences.getString("input", " "));
-                message.setContent(s, "text/html; charset=utf-8");
 
+                message.setRecipients(Message.RecipientType.TO, InternetAddress.parse("indra.kumar24710@gmail.com"));
+
+                message.setSubject("Age: " + preferences.getString("age", " ") + " Gender: " + preferences.getString("gender", " ") + " Edu/Prof field: " + preferences.getString("input", " "));
+                message.setContent(" " +mon+" ","text/html; charset=utf-8");
                 Transport.send(message);
+
 
 
 

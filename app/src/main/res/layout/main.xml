@@ -2,10 +2,9 @@
 <ScrollView android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android">
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
-
 
     <TextView
         android:id="@+id/textView7"
@@ -14,19 +13,19 @@
         android:fontFamily="sans-serif-condensed-medium"
         android:gravity="center"
         android:padding="20dp"
-        android:text="App Usage"
-        android:textColor="@android:color/black"
+        android:text="App Usage Estimator"
+        android:textColor="@color/colorPrimary"
         android:textSize="20sp" />
 
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/textView12"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-condensed-medium"
-        android:padding="15dp"
-        android:text='The primary aim of this app is to collect and send your app usage data to us. We strongly support privacy and so the data we collect is strictly limited to the total duration for which you use a particular app in a day and basic details such as your age, gender and field of occupation or education. You can always view the data that is being sent from your phone by clicking the data button below which will show you exactly that very data that we get to see. This small data collection drill is a part of something bigger, an initiative to find a method to ensure the Responsible use of Mobile Phones . At the end of the day  its completely your choice , you can opt out of this initiative by simple uninstalling this app  or you can contribute to this cause by hitting the "Send" button below and then all you have to do is nothing , just close the app and thats it , you have already played a major role by helping us in understanding the different usage patterns by sending us your data. You can also further support us by hitting the  "idea" button to  send us your own ideas about how we can make using the smartphone  more responsible. Please do fill the age ,gender and professional or educational field below and hit the "Record" button. Thanks a lot for your valuable support.'
-        android:textColor="@android:color/black"
-        android:textSize="15sp" />
+        android:padding="10dp"
+        android:text='Hate Reading a  Usage Guide? Give us UsageStat access in the settings menu that appears when opening the app and then enter your data and hit the "Record" and then the  "Send" button and leave the app in the background for few minutes, thats it . Thanks.'
+        android:textColor="@android:color/holo_red_dark"
+        android:textSize="14sp"
+        android:textStyle="bold" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -54,6 +53,7 @@
             android:inputType="textPersonName"
             android:textSize="14sp" />
     </LinearLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -113,44 +113,74 @@
 
     <Button
         android:id="@+id/record"
+        style="@android:style/Widget.Material.Light.Button.Toggle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:text="Record"
         android:textAllCaps="false"
         android:textColor="@android:color/black"
-        android:layout_gravity="center"/>
+        android:textStyle="bold|italic" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="16dp">
+        android:padding="20dp">
 
         <Button
             android:id="@+id/schedule"
+            style="@android:style/Widget.Material.Light.Button.Toggle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Send"
-            android:textAllCaps="false" />
+            android:textAllCaps="false"
+            android:textStyle="bold|italic" />
 
         <Button
             android:id="@+id/data"
+            style="@android:style/Widget.Material.Light.Button.Toggle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Data"
-            android:textAllCaps="false" />
+            android:textAllCaps="false"
+            android:textStyle="bold|italic" />
 
         <Button
             android:id="@+id/idea"
+            style="@android:style/Widget.Material.Light.Button.Toggle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Idea"
-            android:textAllCaps="false" />
+            android:textAllCaps="false"
+            android:textStyle="bold|italic" />
     </LinearLayout>
 
+
+    <TextView
+        android:id="@+id/textView13"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="bottom|center"
+        android:padding="30dp"
+        android:text="Wanna know what you are getting into ? Hit the button below:"
+        android:textAllCaps="false"
+        android:textColor="@android:color/black"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/details"
+        style="@android:style/Widget.Material.Light.Button.Toggle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Details"
+        android:textAllCaps="false"
+        android:textSize="14sp"
+        android:textStyle="bold|italic" />
 
 
 </LinearLayout>
